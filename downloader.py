@@ -1,21 +1,45 @@
 from bs4 import BeautifulSoup
 import urllib
+import os
 
-f = open('/Users/elee/Desktop/shingeki-no-kyojin.html', 'r')
-html = f.read()
-soup = BeautifulSoup(html)
+def parseUrl(url):
+    parts = url.split('/')
+    return [parts[3], parts[4], parts[5]]
 
-image_src = soup.find('',id='img')['src']
+if __name__=='__main__':
 
-# find next page
+    # query = 'shingeki'
 
-# what does the last page of a series look like?
+    # manga = findSimilar(query, database)[0]
 
-manga = "shingeki-no-kyojin"
-chapter = '34'
-page = '37'
+    manga = "shingeki-no-kyojin"
+    chapter = '1'
+    page = '1'
 
-url = "www.mangareader.net/" + manga + "/" + chapter + "/" + page
+    url = "http://www.mangareader.net/" + manga + "/" + chapter + "/" + page
 
-print url
+    f = urllib.urlopen(url)
+    html = f.read()
+    soup = BeautifulSoup(html)
+
+    print soup
+
+    image_src = soup.find('',id='img')['src']
+
+    directory = manga
+    if not os.path.exists(directory):
+            os.makedirs(directory)
+    image = open('', 'wb')
+    urllib.urlopen(image_src)
+
+    # find next page
+
+    # what does the last page of a series look like?
+
+    manga, chapter, page = parseUrl(url)
+
+    print manga, chapter, page
+
+
+
 

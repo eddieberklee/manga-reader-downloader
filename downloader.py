@@ -6,9 +6,10 @@ ROOT = 'http://www.mangareader.net'
 
 def parseUrl(url):
     parts = url.split('/')
-    if parts[4] and not parts[5]:
+    if len(parts) == 6:
+        return [parts[3], parts[4], parts[5]]
+    else:
         return [parts[3], parts[4], '1']
-    return [parts[3], parts[4], parts[5]]
 
 def findAndDownloadImage(opener, url):
     manga, chapter, page = parseUrl(url)

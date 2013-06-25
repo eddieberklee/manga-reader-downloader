@@ -23,7 +23,7 @@ def findAndDownloadImage(opener, url):
         image_src = image_src['src']
         image_type = image_src.split('.')[-1]
 
-        directory = manga + '/' + chapter
+        directory = 'downloads/' + manga + '/' + chapter
         if not os.path.exists(directory):
                 os.makedirs(directory)
         print directory + '/' + page + '.' + image_type
